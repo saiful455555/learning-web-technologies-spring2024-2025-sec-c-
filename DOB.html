@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date of Birth Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 300px;
+            margin: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .form-container input[type="text"] {
+            width: 50px;
+            padding: 5px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-container input[type="submit"] {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #ccc;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #bbb;
+        }
+        .validation-rules {
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <label>Date of Birth</label>
+        <input type="text" id="day" placeholder="dd" maxlength="2" required> /
+        <input type="text" id="month" placeholder="mm" maxlength="2" required> /
+        <input type="text" id="year" placeholder="yyyy" maxlength="4" required>
+        <br>
+        <input type="submit" value="SUBMIT" onclick="validateForm()">
+        <div id="error-message" class="error"></div>
+    </div>
+    <script>
+        function validateForm() {
+            const day = document.getElementById('day').value;
+            const month = document.getElementById('month').value;
+            const year = document.getElementById('year').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Reset error message
+            errorMessage.style.display = 'none';
+            errorMessage.textContent = '';
+
+            // Check if fields are empty
+            if (!day || !month || !year) {
+                errorMessage.textContent = 'All fields must be filled.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Convert inputs to numbers
+            const dayNum = parseInt(day);
+            const monthNum = parseInt(month);
+            const yearNum = parseInt(year);
+
+            // Check if inputs are valid numbers
+            if (isNaN(dayNum) || isNaN(monthNum) || isNaN(yearNum)) {
+                errorMessage.textContent = 'All fields must be valid numbers.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Validate ranges
+            if (dayNum < 0 || dayNum > 31) {
+                errorMessage.textContent = 'Day must be between 0 and 31.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (monthNum < 1 || monthNum > 12) {
+                errorMessage.textContent = 'Month must be between 1 and 12.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (yearNum < 1900 || yearNum > 2016) {
+                errorMessage.textContent = 'Year must be between 1900 and 2016.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // If all validations pass, you can proceed (e.g., submit the form)
+            alert('Form submitted successfully!\nDate: ' + day + '/' + month + '/' + year);
+        }
+    </script>
+</body>
+</html>
