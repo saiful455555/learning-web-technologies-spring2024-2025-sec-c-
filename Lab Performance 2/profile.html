@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Picture Upload</title>
+    <style>
+        .form-container {
+            border: 1px solid black;
+            padding: 10px;
+            width: 300px;
+            margin: 20px;
+        }
+        .form-container h3 {
+            text-align: center;
+            border-bottom: 1px solid black;
+            padding-bottom: 5px;
+        }
+        .form-container label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="file"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #ccc;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h3>Profile Picture</h3>
+        <form id="profileForm" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <label for="userId">User Id</label>
+            <input type="text" id="userId" name="userId">
+
+            <label for="picture">Picture</label>
+            <input type="file" id="picture" name="picture">
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Get form elements
+            const userId = document.getElementById('userId').value;
+            const picture = document.getElementById('picture').files;
+
+            // Validation for UserId
+            if (userId.trim() === '') {
+                alert('User Id cannot be empty.');
+                return false;
+            }
+
+            const userIdNum = parseFloat(userId);
+            if (isNaN(userIdNum) || userIdNum <= 0) {
+                alert('User Id must be a positive number.');
+                return false;
+            }
+
+            // Validation for Picture
+            if (picture.length === 0) {
+                alert('Please select a picture to upload.');
+                return false;
+            }
+
+            // If all validations pass
+            return true;
+        }
+    </script>
+</body>
+</html>
